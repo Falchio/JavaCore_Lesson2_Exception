@@ -9,4 +9,9 @@ public class MyArrayDataException extends NumberFormatException {
         this.x=x;
         this.y=y;
     }
+
+    public MyArrayDataException(String s){
+        super(s);
+    }
 }
+

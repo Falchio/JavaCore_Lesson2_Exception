@@ -1,4 +1,5 @@
 import exceptions.MyArraySizeException;
+import exceptions.MyArrayDataException;
 
 public class Main {
 
@@ -14,19 +15,21 @@ public class Main {
 
         try {
             sum = sumArray(MyArray);
+            System.out.println("Результат сложения всех элементов массива: " + sum);
         } catch (MyArraySizeException e) {
             e.printStackTrace();
-
+        } catch (MyArrayDataException e) {
+            e.printStackTrace();
+        } finally {
+            System.out.println("Работа программы завершена.");
         }
-        System.out.println("Результат сложения всех элементов массива: " + sum);
-
     }
 
-    static int sumArray(String[][] MyArray) throws MyArraySizeException {
+    static int sumArray(String[][] MyArray) throws MyArraySizeException, MyArrayDataException {
         int sum = 0;
-        boolean dimension = true;
 
         checkDimensionArray(MyArray);
+        checkDataInArray(MyArray);
 
         for (int i = 0; i < MyArray.length; i++) {
             for (int j = 0; j < MyArray[i].length; j++) {
@@ -54,10 +57,27 @@ public class Main {
 
 
         if (!dimension) {
-            throw new MyArraySizeException("На вход подан массив неверной размерности. \n " +
+            throw new MyArraySizeException("\n На вход подан массив неверной размерности. \n " +
                     "-->Для корректной работы программы необходим массив размерности: --> " + arraySize + "x" + arraySize);
         }
 
+    }
+
+    static void checkDataInArray(String[][] MyArray) throws MyArrayDataException {
+        for (int i = 0; i < MyArray.length; i++) {
+            for (int j = 0; j < MyArray[i].length; j++) {
+                if (MyArray[i][j] == null || MyArray[i][j].isEmpty()) {
+                    throw new MyArrayDataException("\n В ячейкe массива [" + i + "] [" + j + "] содержится не чиcловое значение.\n Пожалуйста исправьте для продолжения");
+                } else {
+                    for (int k = 0; k < MyArray[i][j].length(); k++) {
+                        if (!Character.isDigit(MyArray[i][j].charAt(k))) {
+                            throw new MyArrayDataException("\n В ячейкe массива [" + i + "] [" + j + "] содержится не чиcловое значение.\n Пожалуйста исправьте для продолжения");
+                        }
+                    }
+
+                }
+            }
+        }
     }
 }
 
