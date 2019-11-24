@@ -7,7 +7,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        String[][] MyArray = {{"1", "2", "3", "1 "},
+        String[][] MyArray = {{"1", "2", "3", "1"},
                 {"1", "2", "3", "4"},
                 {"1", "2", "3", "4"},
                 {"1", "2", "3", "4"}};
@@ -15,19 +15,18 @@ public class Main {
 
         try {
             sum = sumArray(MyArray);
+            System.out.println("Результат сложения всех элементов массива: " + sum);
         } catch (MyArraySizeException e) {
             e.printStackTrace();
         } catch (MyArrayDataException e) {
             e.printStackTrace();
+        } finally {
+            System.out.println("Работа программы завершена.");
         }
-
-        System.out.println("Результат сложения всех элементов массива: " + sum);
-
     }
 
     static int sumArray(String[][] MyArray) throws MyArraySizeException, MyArrayDataException {
         int sum = 0;
-        boolean dimension = true;
 
         checkDimensionArray(MyArray);
         checkDataInArray(MyArray);
@@ -58,7 +57,7 @@ public class Main {
 
 
         if (!dimension) {
-            throw new MyArraySizeException("На вход подан массив неверной размерности. \n " +
+            throw new MyArraySizeException("\n На вход подан массив неверной размерности. \n " +
                     "-->Для корректной работы программы необходим массив размерности: --> " + arraySize + "x" + arraySize);
         }
 
@@ -79,7 +78,6 @@ public class Main {
                 }
             }
         }
-
     }
 }
 
